@@ -1,5 +1,5 @@
 Spring features
-1)working with POJO
+1)working with POJO - Plain old java object
 2)Dependency Injection
 3)MVC
 4)REST
@@ -7,4 +7,15 @@ Spring features
 6)Batch
 7)Data
 8)AOP
+Spring framework helps us build enterprise java applications and spring boot helps us bootstrap the process of creating spring application.
 Spring boot gives us a production ready application
+when you want to deploy spring project without springboot, you have to have a server
+
+    Dependency Injection
+- What is dependency injection?
+We generally create and work with objects and these objects, work with/ depends on other objects
+so we need external services that will help us inject this required objects to where we need them
+when we add @Component to a class, we automatically make it dependent, it can be accessed by another class
+@Autowired : This is used to connect a class with another class
+This entire concept is dependency injection.
+Making your application loosely coupled
