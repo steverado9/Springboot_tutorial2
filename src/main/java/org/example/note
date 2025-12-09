@@ -19,3 +19,37 @@ when we add @Component to a class, we automatically make it dependent, it can be
 @Autowired : This is used to connect a class with another class
 This entire concept is dependency injection.
 Making your application loosely coupled
+Dependency injection: This helps the developer focus on the logic and when he requires an object, it will make it available.
+Bean: A bean is simply an object that Spring creates and manages for you and it is usually inside a spring container.
+when you annotate a class with @Component,
+spring automatically creates a single object of that class. and makes it available in the spring container
+By default spring framework us a design pattern called "singleton"
+In singleton, you get only one instance of the object.
+To change from single,
+You will use an annotation called @Scope and chose the value you want .
+when you use @Autowired,
+spring will search for that particular class and connect with the class you want to use it in.
+it default search is by type.
+@Qualifier: This searches by name when using @Autowired
+The default name of a class is small letter of the class name, and you can change the default name in the @Component annotation.
+
+    Spring boot JDBC
+JDBC means Java Database Connectivity.
+JDBC is a Java technology that allows Java programs to talk to a database.
+It is like a bridge between your Java code and your database.
+Data source: gives your application connections to the database, has configurations and it helps us with something called connection pull.
+JDBC Template
+This helps with data source and helps write code in efficient way
+How to use Spring boot jdbc
+In your dependencies,
+add jdbc api and a database(postgres or mySql)
+then click generate and unzip
+if you use a database,
+we will configure th following in the application.properties
+-spring.datasource.url
+-spring.datasource.name
+-spring.datasource.username
+-spring.datasource.password
+Repository: The Repository is responsible for connecting to the database.
+We use @Repository annotation for repository class
+we use jdbcTemplate in the repository
