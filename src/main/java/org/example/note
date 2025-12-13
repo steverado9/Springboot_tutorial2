@@ -23,7 +23,7 @@ Dependency injection: This helps the developer focus on the logic and when he re
 Bean: A bean is simply an object that Spring creates and manages for you and it is usually inside a spring container.
 when you annotate a class with @Component,
 spring automatically creates a single object of that class. and makes it available in the spring container
-By default spring framework us a design pattern called "singleton"
+By default spring framework uses a design pattern called "singleton"
 In singleton, you get only one instance of the object.
 To change from single,
 You will use an annotation called @Scope and chose the value you want .
@@ -69,13 +69,46 @@ and the extension is defined with suffix
 3)we can accept it using HttpServletRequest req, now we have access to the name
 4)you get the request from spring using req.getParameter("request name")
 or
-3)we cane use @Requestparameter("parameter name")
+3)we can use @Requestparameter("parameter name")
 4)This is very useful when you are passing in multiple parameters in the url
 5)save the req name in an httpsession and use EL to get it in the jsp page
 or
 4)You can use modelAndView to accept the parameter from the client side
+5)This is useful when the passed in paramters match with a class
 Expression language(EL): is a simple, shortcut way to access data in JSP pages without writing Java code inside the JSP.
 It allows you to access:
 -Request attributes
 -Session attributes
 -Using a clean syntax like: ${...}
+you can pass in multiple variables from the url and just save it in a single object when accessing them
+video : https://www.youtube.com/watch?v=ja2IYFg-KOg&list=PLsyeobzWxl7oA8QOlMtQsRT_I7Rx2hoX4&index=12
+
+    How to create a spring boot application using Spring data JPA and Spring MVC
+Go to "https://start.spring.io/"
+Dependencies
+-Spring Web
+-Spring dataJPA
+-H2(in memory database)
+When working with jsp, you have to add the jasper dependency from "https://mvnrepository.com"
+    How to enable h2 database
+configure the application.properties with this
+-spring.h2.console.enabled=true
+-spring.datasource.platform=h2
+-spring.datasource.url=jdbc:h2:mem:stephen
+    How to access the h2 database on the browser
+go to "localhost:8080/h2-console"
+you will get a login page for the database, click on test connection if successful, click connect
+    To add a table to the database,
+-we have to enable jpa
+-add @Entity to the class for the table and @Id
+refresh and click connect, you will see the table in the h2 database.
+"Select * from alien"
+Create a data.sql file in resources folder
+The Repository is responsible for add data to the database
+All you need to do in the repository interface is to "extends CrudRepository<Alien, typeOfPrimaryId> {
+"
+
+TODO
+-add data(done)
+-fetch data
+
