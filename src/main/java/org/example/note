@@ -83,7 +83,7 @@ It allows you to access:
 you can pass in multiple variables from the url and just save it in a single object when accessing them
 video : https://www.youtube.com/watch?v=ja2IYFg-KOg&list=PLsyeobzWxl7oA8QOlMtQsRT_I7Rx2hoX4&index=12
 
-    How to create a spring boot application using Spring data JPA and Spring MVC
+    How to create a spring boot application using Spring data JPA and Spring MVC(bootJPA)
 Go to "https://start.spring.io/"
 Dependencies
 -Spring Web
@@ -105,10 +105,88 @@ refresh and click connect, you will see the table in the h2 database.
 "Select * from alien"
 Create a data.sql file in resources folder
 The Repository is responsible for add data to the database
-All you need to do in the repository interface is to "extends CrudRepository<Alien, typeOfPrimaryId> {
-"
+All you need to do in the repository interface is to "extends CrudRepository<Alien, typeOfPrimaryId>"
+You can also create your own method in the repository and spring will atomatically understand it.
+    How to name a method in the respository
+1)The method name should start with findBy/getBy and it should end with the name of a property inside the class we want to find in.
+2)When working with JPA, you will be working with JPQL(you will write jpql queries)
+    REST API
+@ResponseBody : This says i am not returning a view, just return what is in the body.
+The rest API returns json
+We now use JpaRepository instead of CRUDrepository
+JpaRepository has all CRUDrepository features plus extra features.
+JpaRepository returns data in JSON format
+    How to send a JSON
+-We use postman
+-You can specify the type of data you are sending and you want to receive in the header
+in the key, we will choose Accept
+and in the value, we will specify the data type
+When we talk about web services, we have different formats which are
+-JSON and XML
+By default spring responds with JSON but we can specify the format
+Content negotiation
+When a client will specify the type of data e wants and the server will respond with the data or not.
+How do we get the type of data we want from postman
+1)We specify it in the header
+key: Accept
+value: application/xml
+    How to add a support for xml in spring boot
+-Go to the pom.xml
+-Add a dependency for xml
+-Go to "https://mvnrepository.com/"
+-search for "Jackson Dataformat XML"
+to know the version to work with, check your jasckson core version
+-copy the dependency and paste on pom.xml
+In your requestMapping, you set the path and specify the data type you want spring to return e.g
+"@RequestMapping(path="/aliens", produces = {"application/xml"})"
+When you use "@RequestMapping", by default it is a get request
+But you can use ,
+@GetMapping for get request
+@PostMapping for post request
+@PutMapping for put request
+@DeleteMapping for delete request
+We use @RestController annotation when building REST apis
+When sending a raw data, we have to use @Requestbody annotation
+You can also specify how to consume the data in a post request
+e.g "@PostMapping(path ="/alien", consumes = {"application/json"})"
 
-TODO
--add data(done)
--fetch data
+    How to create an application using spring data REST(springDataRest)
+Since we are working with spring data rest, we dont need a controller
+-Dependencies
+database eg h2
+JPA
+REST repositories
+-configure h2
+spring.h2.console.enabled=true
+spring.datasource.platform=h2
+spring.datasource.url=jdbc:h2:mem:stephen
+spring.jpa.hibernate.ddl-auto=create
+spring.jpa.defer-datasource-initialization=true
+-In the entity,
+@GeneratedValue: auto generates values and auto increments them
+-Since we are not using a controller, we will annotate the repository with this
+"@RepositoryRestResource(collectionResourceRel = "aliens", path = "aliens")"
+The annotaton takes two parameters
+1)collectionResourceRel
+2)path
+Go to your postman to make a get request "http://localhost:9090/aliens"
+You can do all other CRUD operation.
 
+    How to create a quiz app using spring boot
+Dependencies
+-Spring Web
+-Postgres database
+-Spring data jpa
+-Lombok(if you don't want to have bulky code)
+The controller accepts request from a user and then the request goes to the service layer
+The service layer does the processing i.e business logic but if you want to connect to the database, you have the Dao layer
+The Dao(Repository) layer talks to the database
+ User-> Controller layer-> Service layer-> Dao(Repository)layer
+ Most of the times we have the same method names in the service layer and controller layer
+in our @entity file if we name our variable "questionTitle" in the database, it till be "question_title"
+@Data: This annotation is from lombok and it creates getters and setter for each of the variables in the class
+Spring does not auto-create databases, only tables.
+you manually create it in postgres
+This link is used to check http responses type - "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status"
+ResponseEntity takes two parameters(The actual responses and the status code)
+We can use the ResponseEntity in the controller or in the service layer
